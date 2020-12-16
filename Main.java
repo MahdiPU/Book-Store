@@ -234,8 +234,10 @@ public class Main {
 			@Override
 			public void keyTyped(KeyEvent key) {
 				comboBox.removeAllItems();
-
 				String s = FindItemTxtField.getText();
+				if(key.getKeyChar() > 31 && key.getKeyChar() < 112) {//make sure that the typed char is not backspace or escape or etc.
+				s = FindItemTxtField.getText()+key.getKeyChar();	
+				}//key.getKeyChar() is added since The related document for the text field has not been updated at the time the keyTyped event is generated.
 				if (s.length() > 2) {
 					try {
 						pst = con.prepareStatement("select Item_Name from item where Item_Name like ? or Barcode = ?");
@@ -247,7 +249,6 @@ public class Main {
 						}
 						comboBox.setPopupVisible(comboBox.getSelectedIndex() != -1);
 					} catch (SQLException e) {
-						e.printStackTrace();
 					}
 				} else {
 					comboBox.hidePopup();
