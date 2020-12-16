@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class AddItem {
@@ -19,6 +20,7 @@ public class AddItem {
 	protected JTextField txtItemPrice;
 	protected JTextField txtQty;
 	protected JButton btnNewButton; 
+
 	/**
 	 * Launch the application.
 	 */
@@ -72,8 +74,8 @@ public class AddItem {
 		frmNewItem.getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Barcode :");
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNewLabel.setBounds(10, 45, 78, 23);
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 		frmNewItem.getContentPane().add(lblNewLabel);
 
 		txtBarcode = new JTextField();
@@ -82,21 +84,22 @@ public class AddItem {
 		txtBarcode.setColumns(10);
 
 		JLabel lblItemName = new JLabel("Item Name :");
-		lblItemName.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblItemName.setBounds(10, 92, 107, 23);
+		lblItemName.setFont(new Font("Arial", Font.PLAIN, 16));
 		frmNewItem.getContentPane().add(lblItemName);
 
 		JLabel lblItemPrice = new JLabel("Item Price :");
-		lblItemPrice.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblItemPrice.setBounds(10, 141, 78, 23);
+		lblItemPrice.setFont(new Font("Arial", Font.PLAIN, 16));
 		frmNewItem.getContentPane().add(lblItemPrice);
 
 		JLabel lblQuantity = new JLabel("Qty in Stock :");
-		lblQuantity.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblQuantity.setBounds(10, 191, 107, 23);
+		lblQuantity.setFont(new Font("Arial", Font.PLAIN, 16));
 		frmNewItem.getContentPane().add(lblQuantity);
 
 		btnNewButton = new JButton("SAVE");
+		btnNewButton.setBounds(309, 230, 90, 37);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String barcode = txtBarcode.getText();
@@ -114,30 +117,33 @@ public class AddItem {
 					System.out.println(k);
 
 				} catch (SQLException e) {
-					System.out.println("no");
-					e.printStackTrace();
+					 	
+					JOptionPane.showMessageDialog(null, "Barcode or Item Name already exist");
+					
 				}
 
 			}
 		});
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton.setBounds(309, 230, 90, 37);
 		frmNewItem.getContentPane().add(btnNewButton);
 
 		txtItemName = new JTextField();
-		txtItemName.setColumns(10);
 		txtItemName.setBounds(125, 91, 297, 28);
+		txtItemName.setColumns(10);
 		frmNewItem.getContentPane().add(txtItemName);
 
 		txtItemPrice = new JTextField();
-		txtItemPrice.setColumns(10);
 		txtItemPrice.setBounds(125, 140, 118, 28);
+		txtItemPrice.setColumns(10);
 		frmNewItem.getContentPane().add(txtItemPrice);
 
 		txtQty = new JTextField();
-		txtQty.setColumns(10);
 		txtQty.setBounds(126, 190, 117, 28);
+		txtQty.setColumns(10);
 		frmNewItem.getContentPane().add(txtQty);
+		
+		
+		
 	}
 }
