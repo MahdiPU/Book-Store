@@ -41,26 +41,16 @@ public class AddItem {
 	 */
 	public AddItem() {
 		initialize();
-		Connect();
+	
 		frmNewItem.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmNewItem.dispose();
 
 	}
 
-	Connection con;
+
 	PreparedStatement pst;
 
-	public void Connect() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore?" + 
-			"user=root&password=123");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -108,14 +98,14 @@ public class AddItem {
 				Integer quantity = Integer.parseInt(txtQty.getText());
 
 				try {
-					pst = con.prepareStatement("insert into item(Barcode,Item_Name,Price,Qty)values(?,?,?,?)");
+					pst = DBC.getConnection().prepareStatement("insert into item(Barcode,Item_Name,Price,Qty)values(?,?,?,?)");
 					pst.setString(1, barcode);
 					pst.setString(2, item_Name);
 					pst.setDouble(3, price);
 					pst.setInt(4, quantity);
-					int k = pst.executeUpdate();
-					System.out.println(k);
-
+					pst.executeUpdate();
+					DBC.disConnect();
+					
 				} catch (SQLException e) {
 					 	
 					JOptionPane.showMessageDialog(null, "Barcode or Item Name already exist");
